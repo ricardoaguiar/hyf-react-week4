@@ -1,62 +1,70 @@
-import { useState } from 'react';
+import {useState} from 'react';
+import {
+    RadioGroup, FormControlLabel, Radio,
+    Checkbox,
+    Select, MenuItem, FormControl, InputLabel,
+    FormGroup, FormLabel, Stack,
+} from '@mui/material';
 
 // Exercise 2
-// TODO: Replace the filter controls with MUI components:
-// - radio inputs    → <RadioGroup> + <FormControlLabel> + <Radio>
-// - checkbox        → <Checkbox> + <FormControlLabel>
-// - <select>        → <Select> + <MenuItem> inside a <FormControl>
+// MUI components used:
+// - <RadioGroup> + <FormControlLabel> + <Radio>  replace radio inputs
+// - <Checkbox> + <FormControlLabel>             replaces the checkbox
+// - <Select> + <MenuItem> inside <FormControl>  replaces <select>
 export default function ProductFilters() {
-  const [category, setCategory] = useState('all');
-  const [inStock, setInStock] = useState(false);
+    const [category, setCategory] = useState('all');
+    const [inStock, setInStock] = useState(false);
+    const [sortBy, setSortBy] = useState('low-high');
 
-  return (
-    <div className="exercise">
-      <h2>Exercise 2 — RadioGroup, Checkbox, Select</h2>
-      <p>
-        Convert these product filters to use MUI{' '}
-        <code>RadioGroup</code>, <code>Checkbox</code>, and <code>Select</code>.
-      </p>
-      <hr />
+    return (
+        <div className="exercise">
+            <h2>Exercise 2 — RadioGroup, Checkbox, Select</h2>
+            <p>
+                Convert these product filters to use MUI{' '}
+                <code>RadioGroup</code>, <code>Checkbox</code>, and <code>Select</code>.
+            </p>
+            <hr/>
 
-      <div className="filters">
-        <fieldset>
-          <legend>Category</legend>
-          {['All', 'Plants', 'Candles', 'Vases', 'Baskets'].map(cat => (
-            <label key={cat} className="radio-label">
-              <input
-                type="radio"
-                name="category"
-                value={cat.toLowerCase()}
-                checked={category === cat.toLowerCase()}
-                onChange={() => setCategory(cat.toLowerCase())}
-              />
-              {cat}
-            </label>
-          ))}
-        </fieldset>
+            <Stack direction="row" spacing={4} flexWrap="wrap">
+                <FormControl>
+                    <FormLabel>Category</FormLabel>
+                    <RadioGroup value={category} onChange={e => setCategory(e.target.value)}>
+                        {['All', 'Plants', 'Candles', 'Vases', 'Baskets'].map(cat => (
+                            <FormControlLabel
+                                key={cat}
+                                value={cat.toLowerCase()}
+                                control={<Radio/>}
+                                label={cat}
+                            />
+                        ))}
+                    </RadioGroup>
+                </FormControl>
 
-        <fieldset>
-          <legend>Availability</legend>
-          <label className="radio-label">
-            <input
-              type="checkbox"
-              checked={inStock}
-              onChange={e => setInStock(e.target.checked)}
-            />
-            In stock only
-          </label>
-        </fieldset>
+                <FormControl>
+                    <FormLabel>Availability</FormLabel>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={inStock}
+                                    onChange={e => setInStock(e.target.checked)}
+                                />
+                            }
+                            label="In stock only"
+                        />
+                    </FormGroup>
+                </FormControl>
 
-        <fieldset>
-          <legend>Sort by</legend>
-          <select>
-            <option>Price: low to high</option>
-            <option>Price: high to low</option>
-            <option>Newest</option>
-            <option>Best rated</option>
-          </select>
-        </fieldset>
-      </div>
-    </div>
-  );
+                <FormControl sx={{minWidth: 180}}>
+                    <InputLabel>Sort by</InputLabel>
+                    <Select value={sortBy} label="Sort by" onChange={e => setSortBy(e.target.value)}>
+                        <MenuItem value="low-high">Price: low to high</MenuItem>
+                        <MenuItem value="high-low">Price: high to low</MenuItem>
+                        <MenuItem value="newest">Newest</MenuItem>
+                        <MenuItem value="best-rated">Best rated</MenuItem>
+                    </Select>
+                </FormControl>
+            </Stack>
+        </div>
+    );
 }
