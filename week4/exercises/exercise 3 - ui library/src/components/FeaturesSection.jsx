@@ -29,7 +29,7 @@ export default function ProfileCard() {
                                 Passionate about sustainable living and modern Scandinavian design.
                             </p>
                             <Stack direction="row" spacing={1} flexWrap="wrap">
-                                {tags.map((tag, i) =>
+                                {tags.map((tag, _i) =>
                                     <Tooltip key={tag} title="Click to filter">
                                         <Chip label={tag} color="primary" variant="outlined"/>
                                     </Tooltip>

@@ -57,7 +57,7 @@ export default function ProductFilters() {
 
                 <FormControl sx={{minWidth: 180}}>
                     <InputLabel>Sort by</InputLabel>
-                    <Select value={sortBy} label="Sort by" onChange={e => setSortBy(e.target.value)}>
+                    <Select variant='outlined' value={sortBy} label="Sort by" onChange={e => setSortBy(e.target.value)}>
                         <MenuItem value="low-high">Price: low to high</MenuItem>
                         <MenuItem value="high-low">Price: high to low</MenuItem>
                         <MenuItem value="newest">Newest</MenuItem>
